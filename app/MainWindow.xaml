@@ -1,0 +1,131 @@
+<Window x:Class="BusyButton.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BusyButton"
+        xmlns:controls="clr-namespace:BusyButton.Controls"
+        mc:Ignorable="d"
+        Title="BusyButton" Height="620" Width="860"
+        Background="#F3F4F6">
+    <Grid>
+        <StackPanel Width="620"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <StackPanel.Resources>
+                <DataTemplate x:Key="CommandContentTemplate">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center"
+                                   FontWeight="SemiBold"
+                                   Text="{Binding Title}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Margin="6,0,0,0"
+                                   Foreground="#6B7280"
+                                   Text="{Binding Detail}" />
+                    </StackPanel>
+                </DataTemplate>
+            </StackPanel.Resources>
+
+            <TextBlock Text="BusyButton"
+                       FontSize="28"
+                       FontWeight="SemiBold"
+                       Foreground="#111827"
+                       Margin="0,0,0,8" />
+
+            <TextBlock Text="Click the buttons to test the states."
+                       FontSize="14"
+                       Foreground="#4B5563"
+                       Margin="0,0,0,24" />
+
+            <UniformGrid Columns="2">
+                <Button Content="Standard button"
+                        Margin="0,0,8,12" />
+
+                <controls:BusyButton x:Name="SuccessButton"
+                                      Content="Save"
+                                      BusyContent="Saving..."
+                                      SuccessContent="Saved"
+                                      FeedbackDuration="0:0:2.5"
+                                      Click="SuccessButton_Click"
+                                      Margin="8,0,0,12" />
+
+                <controls:BusyButton x:Name="ErrorButton"
+                                      Content="Publish"
+                                      BusyContent="Publishing..."
+                                      ErrorContent="Failed"
+                                      IndicatorSize="12"
+                                      FeedbackDuration="0:0:3"
+                                      Click="ErrorButton_Click"
+                                      Margin="0,0,8,12" />
+
+                <controls:BusyButton x:Name="IconContentButton"
+                                      FeedbackDuration="0:0:2"
+                                      Click="IconContentButton_Click"
+                                      Margin="8,0,0,12">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="13"
+                                   Text="Upload" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Margin="6,0,0,0"
+                                   Foreground="#6B7280"
+                                   Text="invoice.pdf" />
+                    </StackPanel>
+                    <controls:BusyButton.BusyContent>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontWeight="SemiBold" Text="Uploading" />
+                            <TextBlock Margin="4,0,0,0" Text="invoice.pdf" />
+                        </StackPanel>
+                    </controls:BusyButton.BusyContent>
+                    <controls:BusyButton.SuccessContent>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontWeight="SemiBold" Text="Uploaded" />
+                            <TextBlock Margin="4,0,0,0" Text="invoice.pdf" />
+                        </StackPanel>
+                    </controls:BusyButton.SuccessContent>
+                </controls:BusyButton>
+
+                <controls:BusyButton x:Name="NoIndicatorButton"
+                                      Content="Refresh cache"
+                                      BusyContent="Refreshing cache..."
+                                      SuccessContent="Cache refreshed"
+                                      ShowStateIndicator="False"
+                                      FeedbackDuration="0:0:1.5"
+                                      Click="NoIndicatorButton_Click"
+                                      Margin="0,0,8,12" />
+
+                <controls:BusyButton x:Name="TemplatedContentButton"
+                                      ContentTemplate="{StaticResource CommandContentTemplate}"
+                                      BusyContent="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                                      SuccessContent="Queued"
+                                      FeedbackDuration="0:0:2"
+                                      Click="TemplatedContentButton_Click"
+                                      Margin="8,0,0,12">
+                    <controls:BusyButton.Content>
+                        <local:CommandLabel Title="Run report" Detail="Q2 revenue" />
+                    </controls:BusyButton.Content>
+                </controls:BusyButton>
+
+                <controls:BusyButton x:Name="CompactButton"
+                                      HorizontalAlignment="Center"
+                                      Content="Sync"
+                                      BusyContent="Sync..."
+                                      SuccessContent="OK"
+                                      FeedbackDuration="0:0:2"
+                                      Click="CompactButton_Click"
+                                      Margin="0,0,8,0" />                
+                
+                <controls:BusyButton x:Name="CompactButton2"
+                                      HorizontalAlignment="Center"
+                                      PreserveButtonSize="False"
+                                      Content="Sync"
+                                      BusyContent="Sync..."
+                                      SuccessContent="OK"
+                                      ShowStateIndicator="False"
+                                      FeedbackDuration="0:0:2"
+                                      Click="CompactButton2_Click"
+                                      Margin="0,0,8,0" />
+            </UniformGrid>
+        </StackPanel>
+    </Grid>
+</Window>
